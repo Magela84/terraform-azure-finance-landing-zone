@@ -51,7 +51,7 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
         "\\Processor(_Total)\\% Processor Time",
         "\\Memory\\Available MBytes"
       ]
-      name                          = "metric-datasource"
+      name = "metric-datasource"
     }
   }
 
@@ -69,6 +69,6 @@ resource "azurerm_monitor_data_collection_rule_association" "dcra" {
   target_resource_id      = var.vm_id
   data_collection_rule_id = azurerm_monitor_data_collection_rule.dcr.id
   description             = "Associates VM to Azure Monitor Agent data collection rule"
-  
-  depends_on = [azurerm_virtual_machine_extension.ama] 
+
+  depends_on = [azurerm_virtual_machine_extension.ama]
 }

@@ -1,7 +1,7 @@
 locals {
   nic_name             = "nic-${var.environment}-ubuntu-01"
   vm_name              = "vm-${var.environment}-ubuntu-01"
-  vm_size              = "Standard_B2s" 
+  vm_size              = "Standard_B2s"
   admin_username       = "azureuser"
   os_disk_name         = "osdisk-${var.environment}-ubuntu-01"
   key_vault_name       = "kv-matrix-shared-${var.environment}-01"
@@ -53,7 +53,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   computer_name                   = local.vm_name
   disable_password_authentication = true
-  
+
   boot_diagnostics {
     storage_account_uri = null
   }
@@ -63,14 +63,14 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 # 3. Hardened Security Storage Account
 resource "azurerm_storage_account" "sa" {
-  name                             = local.storage_account_name
-  resource_group_name              = var.resource_group_name
-  location                         = var.location
-  account_tier                     = "Standard"
-  account_replication_type         = "LRS"
-  https_traffic_only_enabled       = true
-  min_tls_version                  = "TLS1_2"
-  shared_access_key_enabled        = false
+  name                       = local.storage_account_name
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  account_tier               = "Standard"
+  account_replication_type   = "LRS"
+  https_traffic_only_enabled = true
+  min_tls_version            = "TLS1_2"
+  shared_access_key_enabled  = false
 
   network_rules {
     default_action             = "Deny"
@@ -83,10 +83,10 @@ resource "azurerm_storage_account" "sa" {
 
 # 4. Key Vault Resource Layer
 resource "azurerm_key_vault" "kv" {
-  name                        = local.key_vault_name
-  location                    = var.location
-  resource_group_name         = var.resource_group_name
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  sku_name                    = "standard"
-  rbac_authorization_enabled  = true
+  name                       = local.key_vault_name
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  sku_name                   = "standard"
+  rbac_authorization_enabled = true
 }
