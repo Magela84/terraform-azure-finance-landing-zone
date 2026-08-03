@@ -22,6 +22,14 @@ jobs:
         with:
           terraform_version: 1.5.7
 
+      - name: Debug Working Directory
+        run: |
+          pwd
+          ls -la
+          cd environments/prod
+          pwd
+          ls -la
+
       # FIXED: Added default working directory parsing so it targets the folder context
       - name: Verify Code Formatting
         run: terraform fmt -check -recursive
