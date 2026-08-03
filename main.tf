@@ -1,6 +1,6 @@
 # 1. Orchestrate the Base Networking Layer (VNET, Subnets, Bastion Host)
 module "networking" {
-  source      = "./modules/networking"
+  source      = "./networking"
   environment = var.environment
   location    = var.location
   common_tags = local.common_tags
@@ -8,7 +8,7 @@ module "networking" {
 
 # 2. Orchestrate the Secured Compute Layer (NIC, VM, Storage Account, Key Vault)
 module "compute" {
-  source              = "./modules/compute"
+  source              = "./compute"
   environment         = var.environment
   location            = var.location
   resource_group_name = module.networking.resource_group_name # Reads from networking outputs
@@ -18,7 +18,7 @@ module "compute" {
 
 # 3. Orchestrate the Data Collection Monitoring Pipeline (AMA, DCR, Log Analytics)
 module "monitoring" {
-  source              = "./modules/monitoring"
+  source              = "./monitoring"
   environment         = var.environment
   location            = var.location
   resource_group_name = module.networking.resource_group_name # Reads from networking outputs
