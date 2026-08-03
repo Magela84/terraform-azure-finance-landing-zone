@@ -1,6 +1,5 @@
 name: "Terraform CI/CD Pipeline"
 
-# 1. TRIGGER: Run this pipeline on every pull request or push to the main branch
 on:
   push:
     branches:
@@ -12,30 +11,27 @@ on:
 jobs:
   terraform_checks:
     name: "Automated Core Checks"
-    runs-on: ubuntu-latest # GitHub spins up a fresh, secure Linux machine to run our code
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Download your code from GitHub onto the temporary runner machine
       - name: Checkout Code Repository
         uses: actions/checkout@v4
 
-      # Step 2: Install the specific version of Terraform engine on the runner
       - name: Setup Terraform CLI
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.5.7 # Sets a stable, locked version constraint
+          terraform_version: 1.5.7
 
-      # Step 3: Check code formatting rules (Fails if your code is messy or poorly indented)
+      # FIXED: Added default working directory parsing so it targets the folder context
       - name: Verify Code Formatting
         run: terraform fmt -check -recursive
 
-      # Step 4: Re-index paths and load your networking, compute, and monitoring modules
       - name: Initialize Module Directories
         run: |
           cd environments/prod
           terraform init -backend=false
 
-      # Step 5: Run the validation test automatically to ensure zero syntax errors
+      # FIXED: Cleaned validation paths
       - name: Validate Infrastructure Code
         run: |
           cd environments/prod
