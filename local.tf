@@ -25,7 +25,7 @@ locals {
 
   # Virtual Machine Properties (Modify size here to upgrade or downgrade)
   vm_name             = "vm-dev-ubuntu-01"
-  vm_size             = "Standard_B2s"
+  vm_size             = "Standard_B2s" 
   admin_username      = "azureuser"
   ssh_public_key_path = "~/.ssh/id_rsa.pub"
   os_disk_name        = "osdisk-dev-ubuntu-01"

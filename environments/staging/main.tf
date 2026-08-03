@@ -6,7 +6,7 @@ provider "azurerm" {
 module "staging_vm" {
   source                = "../../"
   environment           = "staging"
-  trusted_ssh_ip        = "203.0.113.50/24"
+  trusted_ssh_ip        = "203.0.113.50/24" 
   dev_subnet_prefix     = "10.1.1.0/24"
   staging_subnet_prefix = "10.1.2.0/24"
   prod_subnet_prefix    = "10.1.3.0/24"

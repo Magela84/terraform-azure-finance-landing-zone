@@ -1,3 +1,4 @@
+# Local terraform directories
 **/.terraform/*
 
 # .tfstate files contain sensitive infrastructure secrets and should never be committed
@@ -22,7 +23,7 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# CLI configuration files
+# Ignore CLI configuration files
 .terraformrc
 terraform.rc
 
