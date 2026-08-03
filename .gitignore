@@ -1,0 +1,31 @@
+**/.terraform/*
+
+# .tfstate files contain sensitive infrastructure secrets and should never be committed
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Exclude all variable files containing sensitive credentials/passwords
+*.tfvars
+*.tfvars.json
+
+# Allow documentation or template tfvars if you want to share examples safely
+!example.tfvars
+!*.example.tfvars
+
+# Ignore override files as they are meant for local testing changes
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# CLI configuration files
+.terraformrc
+terraform.rc
+
+# OS-specific files
+.DS_Store
+Thumbs.db
