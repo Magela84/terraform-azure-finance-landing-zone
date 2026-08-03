@@ -1,15 +1,16 @@
 name: "Terraform Azure Plan Pipeline"
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
-# Enforce secure modern OpenID Connect (OIDC) tokens for passwordless Azure logins
 permissions:
   id-token: write
   contents: read
-  pull-requests: write
 
 jobs:
   terraform_plan:
@@ -25,33 +26,32 @@ jobs:
         with:
           terraform_version: 1.5.7
 
-      # Step 3: Authenticate securely into your company's Azure Cloud tenant using OIDC
       - name: Authenticate to Microsoft Azure
         uses: azure/login@v2
         with:
+          auth-type: service_principal
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      # Step 4: Run a true initialization that links up to your active Azure remote state bucket
-      - name: Initialize Production Backend
+      - name: Debug Working Directory
         run: |
+          pwd
+          ls -la
           cd environments/prod
-          terraform init
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_USE_OIDC: true
+          pwd
+          ls -la
 
-      # Step 5: Generate a secure cloud resource execution preview plan
+      - name: Initialize Production Backend
+        working-directory: environments/prod
+        run: terraform init -backend=false
+
       - name: Generate Cloud Plan Preview
         id: plan
-        run: |
-          cd environments/prod
-          terraform plan -no-color -out=tfplan
-        env:
-          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_USE_OIDC: true
+        working-directory: environments/prod
+        run: terraform plan -no-color -out=tfplan
+
+      - name: Validate Infrastructure Code
+        working-directory: environments/prod
+        run: terraform validate
