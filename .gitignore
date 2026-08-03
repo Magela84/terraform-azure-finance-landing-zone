@@ -1,9 +1,11 @@
 # Local terraform directories
 **/.terraform/*
+.terraform/
 
 # .tfstate files contain sensitive infrastructure secrets and should never be committed
 *.tfstate
 *.tfstate.*
+*.tfstate.backup
 
 # Crash logs
 crash.log
@@ -23,7 +25,8 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
-# Ignore CLI configuration files
+# Ignore lock file and CLI configuration
+.terraform.lock.hcl
 .terraformrc
 terraform.rc
 
