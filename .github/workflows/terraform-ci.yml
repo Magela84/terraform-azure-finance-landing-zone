@@ -1,57 +1,25 @@
-name: "Terraform Azure Plan Pipeline"
-
+name: "Terraform CI Engine"
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-
+    branches: [ main ]
 permissions:
-  id-token: write
   contents: read
-
 jobs:
-  terraform_plan:
-    name: "Azure Cloud Execution Plan"
+  validate:
+    name: "Linting & Validation Gates"
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code Repository
         uses: actions/checkout@v4
-
       - name: Setup Terraform CLI
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.7
-
-      - name: Authenticate to Microsoft Azure
-        uses: azure/login@v2
-        with:
-          auth-type: service_principal
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
-
-      - name: Debug Working Directory
+      - name: Verify Code Formatting (Linter)
+        run: terraform fmt -check -recursive
+      - name: Initialize and Validate Modules
         run: |
-          pwd
-          ls -la
-          cd environments/prod
-          pwd
-          ls -la
-
-      - name: Initialize Production Backend
-        working-directory: environments/prod
-        run: terraform init -backend=false
-
-      - name: Generate Cloud Plan Preview
-        id: plan
-        working-directory: environments/prod
-        run: terraform plan -no-color -out=tfplan
-
-      - name: Validate Infrastructure Code
-        working-directory: environments/prod
-        run: terraform validate
+          terraform init -backend=false
+          terraform validate

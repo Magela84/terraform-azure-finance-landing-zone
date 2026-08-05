@@ -41,6 +41,6 @@ module "data" {
   common_tags         = local.common_tags
 
   # Secure compliance login keys
-  db_admin_user       = "ledgeradmin"
-  db_admin_password   = "P@ssw0rdEnterpriseSecure2026!" # Securely masked variable
+  db_admin_user     = "ledgeradmin"
+  db_admin_password = "P@ssw0rdEnterpriseSecure2026!" # Securely masked variable
 }
