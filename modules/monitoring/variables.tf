@@ -18,6 +18,11 @@ variable "vm_id" {
   description = "The target Virtual Machine ID passed from the compute module"
 }
 
+variable "key_vault_id" {
+  type        = string
+  description = "The Key Vault resource ID used for diagnostic settings"
+}
+
 variable "common_tags" {
   type        = map(string)
   description = "Centralized governance tag structure from locals"

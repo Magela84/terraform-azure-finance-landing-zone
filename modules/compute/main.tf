@@ -90,3 +90,47 @@ resource "azurerm_key_vault" "kv" {
   sku_name                   = "standard"
   rbac_authorization_enabled = true
 }
+# 1. Create a User-Assigned Managed Identity for the AKS Cluster (Item 4)
+resource "azurerm_user_assigned_identity" "aks_identity" {
+  name                = "id-finance-${var.environment}-aks"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  tags = var.common_tags
+}
+
+# 2. Deploy an Enterprise Azure Kubernetes Service (AKS) Private Cluster (Item 5)
+resource "azurerm_kubernetes_cluster" "aks" {
+  name                    = "aks-finance-${var.environment}-01"
+  location                = var.location
+  resource_group_name     = var.resource_group_name
+  dns_prefix              = "aks-fin-${var.environment}"
+  private_cluster_enabled = true # Completely hidden from the public internet
+
+  default_node_pool {
+    name           = "nodes"
+    node_count     = 2
+    vm_size        = "Standard_D2s_v5"
+    vnet_subnet_id = var.subnet_id # Deploys directly into your private app subnet
+    max_pods       = 110
+  }
+
+  node_provisioning_profile {
+    mode = "Auto"
+  }
+
+  # Assign the Managed Identity instead of legacy passwords/service principals
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.aks_identity.id]
+  }
+
+
+
+  network_profile {
+    network_plugin    = "azure" # Azure CNI for enterprise networking performance
+    load_balancer_sku = "standard"
+  }
+
+  tags = var.common_tags
+}

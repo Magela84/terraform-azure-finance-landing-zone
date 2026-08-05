@@ -32,21 +32,21 @@ resource "azurerm_subnet" "dev" {
   name                 = local.dev_subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [local.dev_subnet_prefix]
+  address_prefixes     = var.dev_subnet_prefix
 }
 
 resource "azurerm_subnet" "staging" {
   name                 = local.staging_subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [local.staging_subnet_prefix]
+  address_prefixes     = var.staging_subnet_prefix
 }
 
 resource "azurerm_subnet" "prod" {
   name                 = local.prod_subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [local.prod_subnet_prefix]
+  address_prefixes     = var.prod_subnet_prefix
 }
 
 # 4. Network Security Group
@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "dev_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "203.0.113.50/24"
+    source_address_prefix      = var.trusted_ssh_ip
     destination_address_prefix = "*"
   }
 }
@@ -105,4 +105,30 @@ resource "azurerm_bastion_host" "bastion" {
     public_ip_address_id = azurerm_public_ip.pip.id
   }
   tags = var.common_tags
+}
+# 1. Carve out the isolated Data Subnet footprint within your VNET
+resource "azurerm_subnet" "data" {
+  name                              = "snet-finance-data-${var.environment}"
+  resource_group_name               = azurerm_resource_group.rg.name
+  virtual_network_name              = azurerm_virtual_network.vnet.name
+  address_prefixes                  = var.data_subnet_prefix
+  default_outbound_access_enabled   = false # Explicit zero-trust exit blocking
+
+  # CRITICAL: Mandated to route and expose Private Endpoint connections safely
+  private_endpoint_network_policies = "Enabled"
+}
+
+# 2. Establish a strict Network Security Group firewall layer for your data tiers
+resource "azurerm_network_security_group" "data_nsg" {
+  name                = "nsg-finance-data-${var.environment}"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  tags = var.common_tags
+}
+
+# 3. Securely bind the firewall right onto your data subnet interface bounds
+resource "azurerm_subnet_network_security_group_association" "data_assoc" {
+  subnet_id                 = azurerm_subnet.data.id
+  network_security_group_id = azurerm_network_security_group.data_nsg.id
 }
