@@ -2,59 +2,54 @@
 
 ## Industry Relevance
 
-Designed for **financial services, healthcare, insurance, and other regulated industries**, this project demonstrates how to build a secure, scalable, and repeatable Azure landing zone using **Terraform Infrastructure as Code (IaC)**.
+Designed for **financial services, healthcare, insurance, and other regulated industries**, this project demonstrates how to deploy a secure, scalable, and repeatable Azure landing zone using **Terraform Infrastructure as Code (IaC)**.
 
-It provisions isolated **Development**, **Staging**, and **Production** environments while implementing enterprise networking, security, monitoring, and governance best practices.
+The solution provisions isolated **Development**, **Staging**, and **Production** environments while implementing enterprise networking, security, monitoring, and governance best practices.
 
 ---
 
-## Project Overview
+# Project Overview
 
 The **Enterprise Azure Finance Landing Zone** automates the deployment of Azure infrastructure using reusable Terraform modules.
 
-The solution provisions networking, compute, storage, monitoring, and security resources while following **Zero Trust security principles**, **least-privilege access**, and **Infrastructure as Code (IaC)** best practices.
+It provisions networking, compute, storage, monitoring, and security resources while following **Zero Trust security principles**, **least-privilege access**, and **Infrastructure as Code (IaC)** best practices.
 
-This project demonstrates how cloud engineers can deploy secure Azure environments consistently without manual configuration.
-
----
-
-## Business Value
-
-Organizations often struggle with inconsistent cloud deployments, security risks, and manual infrastructure provisioning.
-
-This landing zone provides:
-
-- Secure and repeatable Azure deployments
-- Isolated Development, Staging, and Production environments
-- Improved security through Zero Trust architecture
-- Centralized monitoring and logging
-- Standardized infrastructure that supports governance and compliance
+The project demonstrates how cloud engineers can deploy secure Azure environments consistently without manual configuration.
 
 ---
 
-## Architecture Diagram
+# Business Value
 
-*(Insert architecture diagram here)*
+Organizations often struggle with inconsistent infrastructure deployments, security risks, and manual cloud provisioning.
+
+This solution helps organizations:
+
+- Standardize Azure deployments
+- Improve cloud security
+- Reduce configuration errors
+- Support governance and compliance
+- Deploy infrastructure consistently across environments
 
 ---
 
-## Key Features
+# Key Features
 
 - Terraform Infrastructure as Code (IaC)
 - Modular Terraform architecture
-- Multi-environment deployment (Dev, Staging, Production)
-- Virtual Network (VNet) with isolated subnets
-- Azure Bastion secure administrative access
+- Multi-environment deployment (Development, Staging, Production)
+- Azure Virtual Network (VNet)
 - Network Security Groups (NSGs)
-- Private Virtual Machines (no public IPs)
-- Azure Key Vault with RBAC
-- Azure Monitor and Log Analytics
+- Azure Bastion secure administration
+- Private Linux Virtual Machines
+- Azure Key Vault
 - Azure Storage Account
+- Azure Monitor
+- Log Analytics Workspace
 - Zero Trust network design
 
 ---
 
-## Tech Stack
+# Tech Stack
 
 ### Infrastructure as Code
 
@@ -93,16 +88,36 @@ This landing zone provides:
 
 ---
 
-## Project Structure
+# Architecture Overview
+
+The landing zone deploys Azure infrastructure using reusable Terraform modules across isolated **Development**, **Staging**, and **Production** environments.
+
+The deployment includes:
+
+- Azure Virtual Network (VNet)
+- Private Subnets
+- Network Security Groups (NSGs)
+- Azure Bastion
+- Private Linux Virtual Machines
+- Azure Storage Account
+- Azure Key Vault
+- Azure Monitor
+- Log Analytics Workspace
+
+This architecture follows **Zero Trust**, **least-privilege access**, and **Infrastructure as Code** best practices to provide a secure and repeatable Azure foundation.
+
+---
+
+# Project Structure
 
 ```text
 .
-├── environments/
+├── environments
 │   ├── dev
 │   ├── staging
 │   └── prod
 │
-├── modules/
+├── modules
 │   ├── networking
 │   ├── compute
 │   └── monitoring
@@ -116,43 +131,61 @@ This landing zone provides:
 
 ---
 
-## Security Highlights
+# Security Highlights
 
 - Zero Trust network architecture
-- Private Virtual Machines
-- Azure Bastion secure access
+- Private Virtual Machines (No Public IP)
+- Azure Bastion secure administration
+- Azure Key Vault for secrets management
 - Azure RBAC
-- Azure Key Vault
-- TLS 1.2 enforced
-- Storage firewall rules
 - Least Privilege access
+- TLS 1.2 enforced
+- Storage firewall protection
 
 ---
 
-## Monitoring
+# Monitoring
 
-The landing zone includes:
+The solution includes centralized monitoring using:
 
 - Azure Monitor
+- Azure Monitor Agent (AMA)
 - Log Analytics Workspace
-- Azure Monitor Agent
-- Data Collection Rules
-- Centralized infrastructure logging
+- Data Collection Rules (DCR)
+
+This enables centralized logging, infrastructure monitoring, and operational visibility across Azure resources.
 
 ---
 
-## Deployment
+# Deployment
+
+Initialize Terraform
 
 ```bash
 terraform init
+```
+
+Validate the configuration
+
+```bash
 terraform validate
+```
+
+Preview infrastructure changes
+
+```bash
 terraform plan
+```
+
+Deploy the infrastructure
+
+```bash
 terraform apply
 ```
 
 ---
 
-## Future Enhancements
+# Future Enhancements
 
 - Azure Firewall
 - Private Endpoints
@@ -160,12 +193,14 @@ terraform apply
 - Microsoft Defender for Cloud
 - GitHub Actions CI/CD
 - Terraform Remote State
-- Cost Management dashboards
+- Azure Cost Management integration
 
 ---
 
-## Author
+# Author
 
 **Magela Bobby Akinola**
 
-- GitHub- LinkedIn- Portfolio
+- GitHub: https://github.com/Magela84
+- LinkedIn: https://linkedin.com/in/magela-akinola
+- Portfolio: https://magela84.github.io/magela-portfolio-website/
