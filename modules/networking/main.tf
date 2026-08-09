@@ -108,11 +108,11 @@ resource "azurerm_bastion_host" "bastion" {
 }
 # 1. Carve out the isolated Data Subnet footprint within your VNET
 resource "azurerm_subnet" "data" {
-  name                              = "snet-finance-data-${var.environment}"
-  resource_group_name               = azurerm_resource_group.rg.name
-  virtual_network_name              = azurerm_virtual_network.vnet.name
-  address_prefixes                  = var.data_subnet_prefix
-  default_outbound_access_enabled   = false # Explicit zero-trust exit blocking
+  name                            = "snet-finance-data-${var.environment}"
+  resource_group_name             = azurerm_resource_group.rg.name
+  virtual_network_name            = azurerm_virtual_network.vnet.name
+  address_prefixes                = var.data_subnet_prefix
+  default_outbound_access_enabled = false # Explicit zero-trust exit blocking
 
   # CRITICAL: Mandated to route and expose Private Endpoint connections safely
   private_endpoint_network_policies = "Enabled"

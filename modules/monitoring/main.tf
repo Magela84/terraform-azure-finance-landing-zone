@@ -78,7 +78,7 @@ resource "azurerm_recovery_services_vault" "vault" {
   location            = var.location
   resource_group_name = var.resource_group_name
   sku                 = "Standard"
-  storage_mode_type = "GeoRedundant" # Mirrors data across multiple regions for safety
+  storage_mode_type   = "GeoRedundant" # Mirrors data across multiple regions for safety
 
   tags = var.common_tags
 }
