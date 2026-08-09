@@ -12,7 +12,7 @@ module "networking" {
 
 # 2. Orchestrate the Secured Compute Layer (NIC, VM, Storage Account, Key Vault)
 module "compute" {
-  source              = "./compute"
+  source              = "./modules/compute"
   environment         = var.environment
   location            = var.location
   resource_group_name = module.networking.resource_group_name # Reads from networking outputs
