@@ -12,3 +12,8 @@ output "aks_id" {
   value       = azurerm_kubernetes_cluster.aks.id
   description = "ID of the AKS cluster deployed by the compute module"
 }
+
+output "key_vault_id" {
+  description = "The ID of the compute Key Vault."
+  value       = azurerm_key_vault.kv.id
+}
