@@ -44,7 +44,7 @@ The solution provisions isolated Azure environments using reusable Terraform mod
 * **Network Security Groups** — controlled network traffic between resources
 * **Azure Key Vault** — centralized secrets and key management
 * **Azure RBAC & Managed Identity** — least-privilege access to Azure resources
-* **Secure Storage** — TLS 1.2 and storage firewall controls
+* **Secure Storage** — storage firewall controls
 * **Centralized Monitoring** — Azure Monitor, Log Analytics, Azure Monitor Agent, and Data Collection Rules
 
 ## Project Structure
@@ -79,8 +79,7 @@ Key controls include:
 * Network segmentation using VNets, subnets, and NSGs
 * Secrets management with Azure Key Vault
 * Azure RBAC for controlled resource access
-* Managed Identity for credential-free Azure service authentication
-* TLS 1.2 enforcement
+* Managed Identity 
 * Storage firewall protection
 
 ## Monitoring
@@ -105,37 +104,6 @@ Azure Monitor
 
 **Log Analytics Workspace** centralizes collected monitoring data for querying and analysis.
 
-## Deployment
-
-Authenticate to Azure:
-
-```bash
-az login
-```
-
-Initialize Terraform:
-
-```bash
-terraform init
-```
-
-Validate the configuration:
-
-```bash
-terraform validate
-```
-
-Review the deployment plan:
-
-```bash
-terraform plan
-```
-
-Deploy the infrastructure:
-
-```bash
-terraform apply
-```
 
 ## Engineering Principles
 
