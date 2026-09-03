@@ -1,9 +1,12 @@
-🏦 Enterprise Azure Finance Landing Zone (Terraform)Industry FocusThis solution is tailored for financial services, healthcare, insurance, and other regulated sectors, providing a framework for deploying secure, scalable, and compliant Azure environments using Terraform.PurposeManual cloud deployments introduce variability and risk. This landing zone addresses these challenges by:
+🏦 Enterprise Azure Finance Landing Zone (Terraform)
+
+Industry FocusThis solution is tailored for financial services, healthcare, insurance, and other regulated sectors, providing a framework for deploying secure, scalable, and compliant Azure environments using Terraform.PurposeManual cloud deployments introduce variability and risk. This landing zone addresses these challenges by:
 Standardizing Azure infrastructure provisioning
 Implementing Zero Trust security across all environments
 Minimizing human error through automation
 Enforcing governance and regulatory compliance
 Streamlining environment deployment processes
+
 Key Features
 Infrastructure as Code (IaC) with Terraform for automation and repeatability
 Modular architecture supporting reusable and extensible Terraform modules
@@ -13,6 +16,7 @@ Secure administration via Azure Bastion and isolated virtual machines
 Confidential secret management with Azure Key Vault
 Comprehensive monitoring: Azure Monitor, Log Analytics
 Governance: Role-Based Access Control (RBAC), least-privilege principles, TLS 1.2 enforcement
+
 Technology Stack
 Infrastructure Automation: Terraform
 Cloud Platform: Microsoft Azure
