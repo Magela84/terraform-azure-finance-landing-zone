@@ -33,14 +33,12 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{41e55209-da92-4fdc-8e42-b43702a52449}}
-          tenant-id: ${{92620a2a-2ed4-413d-beb4-48281c15a172}}
-          subscription-id: ${{b160a18c-274b-4767-8c09-99a315eed216 }}
+          client-id: ${{ 41e55209-da92-4fdc-8e42-b43702a52449 }}
+          tenant-id: ${{ 92620a2a-2ed4-413d-beb4-48281c15a172 }}
+          subscription-id: ${{ b160a18c-274b-4767-8c09-99a315eed216 }}
 
       - name: Initialize Terraform
         run: terraform init -backend=false -input=false
 
       - name: Validate Terraform
         run: terraform validate
-          terraform validate
- 
