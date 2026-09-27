@@ -32,3 +32,12 @@ variable "prod_subnet_prefix" {
   description = "The CIDR prefix for the production subnet"
   default     = ["10.0.3.0/24"]
 }
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key used to authenticate to the Azure virtual machine"
+}
+variable "db_admin_password" {
+  type        = string
+  description = "Administrator password for the Azure SQL database"
+  sensitive   = true
+}

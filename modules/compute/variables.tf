@@ -22,3 +22,7 @@ variable "common_tags" {
   type        = map(string)
   description = "Centralized governance tag structure from locals"
 }
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key used to authenticate to the Azure virtual machine"
+}
